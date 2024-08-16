@@ -1,11 +1,11 @@
 using FluentValidation;
 using Services.Models.Request;
 
-namespace Services.Validation;
+namespace Services.Validation.Validators;
 
-public class DeleteOrderValidator : AbstractValidator<DeleteOrderModel>
+public class GetOrderByIdValidator : AbstractValidator<GetOrderByIdModel>
 {
-    public DeleteOrderValidator()
+    public GetOrderByIdValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty()

@@ -13,6 +13,7 @@ using Services.Models.Request;
 using Services.Repositories.Interfaces;
 using Services.Services.Interfaces;
 using Services.Validation;
+using Services.Validation.Validators;
 using WebApi.Mapper;
 using WebApi.Middlewares;
 
@@ -47,6 +48,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IValidator<GetOrdersByClientIdModel>, GetOrdersByClientIdValidator>();
         services.AddScoped<IValidator<GetOrdersInPeriodModel>, GetOrdersInPeriodValidator>();
         services.AddScoped<IValidator<GetAllOrdersModel>, GetAllOrdersValidator>();
+
+        services.AddScoped<OrderValidator>();
         
         return services;
     }
