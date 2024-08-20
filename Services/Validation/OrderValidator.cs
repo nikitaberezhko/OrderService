@@ -14,53 +14,67 @@ public class OrderValidator(
     IValidator<GetOrdersInPeriodModel> getOrdersInPeriodValidator,
     IValidator<GetAllOrdersModel> getAllOrdersValidator)
 {
-    public async Task ValidateAsync(CreateOrderModel model)
+    public async Task<bool> ValidateAsync(CreateOrderModel model)
     {
         var validationResult = await createOrderValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
             ThrowWithStandartMessage();
+        
+        return true;
     }
     
-    public async Task ValidateAsync(UpdateOrderModel model)
+    public async Task<bool> ValidateAsync(UpdateOrderModel model)
     {
         var validationResult = await updateOrderValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
             ThrowWithStandartMessage();
+        
+        return true;
     }
     
-    public async Task ValidateAsync(DeleteOrderModel model)
+    public async Task<bool> ValidateAsync(DeleteOrderModel model)
     {
         var validationResult = await deleteOrderValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
             ThrowWithStandartMessage();
+        
+        return true;
     }
     
-    public async Task ValidateAsync(GetOrderByIdModel model)
+    public async Task<bool> ValidateAsync(GetOrderByIdModel model)
     {
         var validationResult = await getOrderByIdValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
             ThrowWithStandartMessage();
+        
+        return true;
     }
     
-    public async Task ValidateAsync(GetOrdersByClientIdModel model)
+    public async Task<bool> ValidateAsync(GetOrdersByClientIdModel model)
     {
         var validationResult = await getOrdersByClientIdValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
             ThrowWithStandartMessage();
+        
+        return true;
     }
     
-    public async Task ValidateAsync(GetOrdersInPeriodModel model)
+    public async Task<bool> ValidateAsync(GetOrdersInPeriodModel model)
     {
         var validationResult = await getOrdersInPeriodValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
             ThrowWithStandartMessage();
+        
+        return true;
     }
     
-    public async Task ValidateAsync(GetAllOrdersModel model)
+    public async Task<bool> ValidateAsync(GetAllOrdersModel model)
     {
         var validationResult = await getAllOrdersValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
             ThrowWithStandartMessage();
+        
+        return true;
     }
 
     private void ThrowWithStandartMessage()

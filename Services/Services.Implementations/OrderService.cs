@@ -1,9 +1,6 @@
 using AutoMapper;
 using BusModels;
 using Domain;
-using Exceptions.Contracts.Services;
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Services.Bus.Interfaces;
 using Services.Models.Request;
 using Services.Models.Response;
