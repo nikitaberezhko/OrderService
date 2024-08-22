@@ -28,8 +28,4 @@
       <ProjectReference Include="..\WebApi\WebApi.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Services\OrderServiceTests\" />
-    </ItemGroup>
-
 </Project>

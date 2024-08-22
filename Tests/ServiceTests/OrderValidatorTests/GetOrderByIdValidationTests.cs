@@ -5,16 +5,16 @@ using Services.Models.Request;
 using Services.Validation;
 using Xunit;
 
-namespace Tests.Services.OrderValidatorTests;
+namespace Tests.ServiceTests.OrderValidatorTests;
 
-public class DeleteOrderValidationTests
+public class GetOrderByIdValidationTests
 {
     [Fact]
-    public async Task DeleteOrder_MustBeValid()
+    public async Task ValidateAsync_Should_Be_Valid_With_Valid_Model()
     {
         // Arrange
-        var validator = CreateValidatorForDeleteCase();
-        var model = new DeleteOrderModel
+        var validator = CreateValidatorForGetByIdCase();
+        var model = new GetOrderByIdModel
         {
             Id = Guid.NewGuid()
         };
@@ -27,11 +27,11 @@ public class DeleteOrderValidationTests
     }
 
     [Fact]
-    public async Task DeleteOrder_MustThrowBecauseIdIsInvalid()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_Id_Is_Invalid()
     {
         // Arrange
-        var validator = CreateValidatorForDeleteCase();
-        var model = new DeleteOrderModel
+        var validator = CreateValidatorForGetByIdCase();
+        var model = new GetOrderByIdModel
         {
             Id = Guid.Empty
         };
@@ -43,11 +43,11 @@ public class DeleteOrderValidationTests
             await validator.ValidateAsync(model));
     }
     
-    private OrderValidator CreateValidatorForDeleteCase() =>
+    private OrderValidator CreateValidatorForGetByIdCase() => 
         new(new Mock<IValidator<CreateOrderModel>>().Object,
             new Mock<IValidator<UpdateOrderModel>>().Object,
-            Provider.Get<IValidator<DeleteOrderModel>>(),
-            new Mock<IValidator<GetOrderByIdModel>>().Object,
+            new Mock<IValidator<DeleteOrderModel>>().Object,
+            Provider.Get<IValidator<GetOrderByIdModel>>(),
             new Mock<IValidator<GetOrdersByClientIdModel>>().Object,
             new Mock<IValidator<GetOrdersInPeriodModel>>().Object,
             new Mock<IValidator<GetAllOrdersModel>>().Object);

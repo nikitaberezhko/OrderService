@@ -1,3 +1,4 @@
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using WebApi.Extensions;
 
@@ -14,6 +15,8 @@ public static class Provider
         services.AddServices();
         services.AddMappers();
         services.AddValidation();
+        // services.AddMassTransit();
+        services.AddMassTransitTestHarness();
         
         _serviceProvider = services.BuildServiceProvider();
     }

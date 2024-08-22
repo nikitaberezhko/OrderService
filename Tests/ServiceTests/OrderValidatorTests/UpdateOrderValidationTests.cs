@@ -6,12 +6,12 @@ using Services.Models.Request;
 using Services.Validation;
 using Xunit;
 
-namespace Tests.Services.OrderValidatorTests;
+namespace Tests.ServiceTests.OrderValidatorTests;
 
 public class UpdateOrderValidationTests
 {
     [Fact]
-    public async Task UpdateOrder_MustBeValid()
+    public async Task ValidateAsync_Should_Be_Valid_With_Valid_Model()
     {
         // Arrange
         var validator = CreateValidatorForUpdateCase();
@@ -38,7 +38,7 @@ public class UpdateOrderValidationTests
     }
 
     [Fact]
-    public async Task UpdateOrder_MustThrowBecauseIdIsInvalid()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_Id_Is_Invalid()
     {
         // Arrange
         var validator = CreateValidatorForUpdateCase();
@@ -65,7 +65,7 @@ public class UpdateOrderValidationTests
     }
 
     [Fact]
-    public async Task UpdateOrder_MustThrowBecausePriceLessThan1()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_Price_Less_Than_1()
     {
         // Arrange
         var validator = CreateValidatorForUpdateCase();
@@ -92,7 +92,7 @@ public class UpdateOrderValidationTests
     }
 
     [Fact]
-    public async Task UpdateOrder_MustThrowBecauseDateStartLessThanDateEnd()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_DateStart_Less_Than_DateEnd()
     {
         // Arrange
         var validator = CreateValidatorForUpdateCase();
@@ -119,7 +119,7 @@ public class UpdateOrderValidationTests
     }
 
     [Fact]
-    public async Task UpdateOrder_MustThrowBecauseHubStartIdIsInvalid()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_HubStartId_Is_Invalid()
     {
         // Arrange
         var validator = CreateValidatorForUpdateCase();
@@ -146,7 +146,7 @@ public class UpdateOrderValidationTests
     }
 
     [Fact]
-    public async Task UpdateOrder_MustThrowBecauseHubEndIdIsInvalid()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_HubEndId_Is_Invalid()
     {
         // Arrange
         var validator = CreateValidatorForUpdateCase();
@@ -173,7 +173,7 @@ public class UpdateOrderValidationTests
     }
     
     [Fact]
-    public async Task UpdateOrder_MustThrowBecauseContainersCollectionIsEmpty()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_Containers_Collection_Is_Empty()
     {
         // Arrange
         var validator = CreateValidatorForUpdateCase();

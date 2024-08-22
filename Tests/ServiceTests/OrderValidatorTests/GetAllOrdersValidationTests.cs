@@ -5,12 +5,12 @@ using Services.Models.Request;
 using Services.Validation;
 using Xunit;
 
-namespace Tests.Services.OrderValidatorTests;
+namespace Tests.ServiceTests.OrderValidatorTests;
 
 public class GetAllOrdersValidationTests
 {
     [Fact]
-    public async Task GetAllOrders_MustBeValid()
+    public async Task ValidateAsync_Should_Be_Valid_With_Valid_Model()
     {
         // Arrange
         var validator = CreateValidatorForGetAllCase();
@@ -28,7 +28,7 @@ public class GetAllOrdersValidationTests
     }
 
     [Fact]
-    public async Task GetAllOrders_MustThrowBecausePageLessThan1()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_Page_Less_Than_1()
     {
         // Arrange
         var validator = CreateValidatorForGetAllCase();
@@ -46,7 +46,7 @@ public class GetAllOrdersValidationTests
     }
 
     [Fact]
-    public async Task GetAllOrders_MustThrowBecausePageSizeLessThan1()
+    public async Task ValidateAsync_Should_Throw_ServiceException_PageSize_Less_Than_1()
     {
         // Arrange
         var validator = CreateValidatorForGetAllCase();
@@ -64,7 +64,7 @@ public class GetAllOrdersValidationTests
     }
 
     [Fact]
-    public async Task GetAllOrders_MustThrowBecausePageSizeGreaterThan50()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_PageSize_Greater_Than_50()
     {
         // Arrange
         var validator = CreateValidatorForGetAllCase();

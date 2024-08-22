@@ -5,12 +5,12 @@ using Services.Models.Request;
 using Services.Validation;
 using Xunit;
 
-namespace Tests.Services.OrderValidatorTests;
+namespace Tests.ServiceTests.OrderValidatorTests;
 
 public class GetOrdersInPeriodValidationTests
 {
     [Fact]
-    public async Task GetOrdersInPeriod_MustBeValid()
+    public async Task ValidateAsync_Should_Be_Valid_With_Valid_Model()
     {
         // Arrange
         var validator = CreateValidatorForGetInPeriodCase();
@@ -28,7 +28,7 @@ public class GetOrdersInPeriodValidationTests
     }
 
     [Fact]
-    public async Task GetOrdersInPeriod_MustThrowBecausePeriodLessThan28Days()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_Period_Less_Than_28Days()
     {
         // Arrange
         var validator = CreateValidatorForGetInPeriodCase();

@@ -5,18 +5,18 @@ using Services.Models.Request;
 using Services.Validation;
 using Xunit;
 
-namespace Tests.Services.OrderValidatorTests;
+namespace Tests.ServiceTests.OrderValidatorTests;
 
-public class GetOrdersByClientIdValidationTests
+public class DeleteOrderValidationTests
 {
     [Fact]
-    public async Task GetOrdersByClientId_MustBeValid()
+    public async Task ValidateAsync_Should_Be_Valid_With_Valid_Model()
     {
         // Arrange
-        var validator = CreateValidatorForGetByClientIdCase();
-        var model = new GetOrdersByClientIdModel
+        var validator = CreateValidatorForDeleteCase();
+        var model = new DeleteOrderModel
         {
-            ClientId = Guid.NewGuid()
+            Id = Guid.NewGuid()
         };
         
         // Act
@@ -25,15 +25,15 @@ public class GetOrdersByClientIdValidationTests
         // Assert
         Assert.True(actual);
     }
-    
+
     [Fact]
-    public async Task GetOrdersByClientId_MustThrowBecauseClientIdIsInvalid()
+    public async Task ValidateAsync_Should_Throw_ServiceException_If_Id_Is_Invalid()
     {
         // Arrange
-        var validator = CreateValidatorForGetByClientIdCase();
-        var model = new GetOrdersByClientIdModel
+        var validator = CreateValidatorForDeleteCase();
+        var model = new DeleteOrderModel
         {
-            ClientId = Guid.Empty
+            Id = Guid.Empty
         };
         
         // Act
@@ -42,13 +42,13 @@ public class GetOrdersByClientIdValidationTests
         await Assert.ThrowsAsync<ServiceException>(async () => 
             await validator.ValidateAsync(model));
     }
-
-    private OrderValidator CreateValidatorForGetByClientIdCase() =>
+    
+    private OrderValidator CreateValidatorForDeleteCase() =>
         new(new Mock<IValidator<CreateOrderModel>>().Object,
             new Mock<IValidator<UpdateOrderModel>>().Object,
-            new Mock<IValidator<DeleteOrderModel>>().Object,
+            Provider.Get<IValidator<DeleteOrderModel>>(),
             new Mock<IValidator<GetOrderByIdModel>>().Object,
-            Provider.Get<IValidator<GetOrdersByClientIdModel>>(),
+            new Mock<IValidator<GetOrdersByClientIdModel>>().Object,
             new Mock<IValidator<GetOrdersInPeriodModel>>().Object,
             new Mock<IValidator<GetAllOrdersModel>>().Object);
 }

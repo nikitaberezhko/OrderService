@@ -111,7 +111,7 @@ public static class ServiceCollectionExtensions
         
         services.AddMassTransit(options =>
         {
-            options.UsingRabbitMq((context, cfg) =>
+            options.UsingRabbitMq((_, cfg) =>
                 cfg.Host(rmqSettings.Host, rmqSettings.Vhost, h =>
                 {
                     h.Username(rmqSettings.Username);
