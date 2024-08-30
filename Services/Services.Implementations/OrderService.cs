@@ -30,6 +30,7 @@ public class OrderService(
         {
             ContainerIds = model.Containers.Select(c => c.Id).ToList(),
             OrderId = id,
+            HubStartId = model.HubStartId,
             EngagedUntil = model.DateEnd
         };
         await createOrderProducer.NotifyOrderCreated(message);
@@ -41,11 +42,13 @@ public class OrderService(
     {
         await orderValidator.ValidateAsync(model);
         
+        // todo: add check creating datetime for update 
         var order = await orderRepository.UpdateAsync(mapper.Map<Order>(model));
         var message = new OrderUpdatedMessage
         {
             ContainerIds = order.Containers.Select(c => c.Id).ToList(),
             OrderId = order.Id,
+            HubStartId = model.HubStartId,
             EngagedUntil = order.DateEnd
         };
         await updateOrderProducer.NotifyOrderUpdated(message);

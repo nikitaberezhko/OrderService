@@ -51,6 +51,7 @@ public class ApiMappingProfile : Profile
         CreateMap<GetOrdersByClientIdRequest, GetOrdersByClientIdModel>()
             .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId));
         
+        
         CreateMap<GetOrdersInPeriodRequest, GetOrdersInPeriodModel>()
             .ForMember(d => d.End, map => map.MapFrom(c => c.End))
             .ForMember(d => d.Period, map => map.MapFrom(c => c.Period));
@@ -72,13 +73,18 @@ public class ApiMappingProfile : Profile
             .ForMember(d => d.Id, map => map.MapFrom(c => c.Id));
         
         
+        CreateMap<ContainerShortenedApiModel, ContainerModel>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id));
+        
+        
         CreateMap<DownTimeApiModel, DownTimeModel>()
             .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
             .ForMember(d => d.HubId, map => map.MapFrom(c => c.HubId))
             .ForMember(d => d.DateStart, map => map.MapFrom(c => c.DateStart))
             .ForMember(d => d.DateEnd, map => map.MapFrom(c => c.DateEnd));
         
-
+        
+        
         // Response models -> Responses
         CreateMap<OrderModel, DeleteOrderResponse>()
             .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
@@ -143,6 +149,10 @@ public class ApiMappingProfile : Profile
 
 
         CreateMap<ContainerModel, ContainerApiModel>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id));
+        
+        
+        CreateMap<ContainerModel, ContainerShortenedApiModel>()
             .ForMember(d => d.Id, map => map.MapFrom(c => c.Id));
         
         

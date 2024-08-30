@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BusModels" Version="1.0.0" />
+      <PackageReference Include="BusModels" Version="1.1.0" />
       <PackageReference Include="Exceptions.Contracts" Version="1.0.0" />
       <PackageReference Include="MassTransit" Version="8.2.3" />
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
