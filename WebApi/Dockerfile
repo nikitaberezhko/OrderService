@@ -1,6 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
+EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -10,8 +11,6 @@ COPY ["WebApi/WebApi.csproj", "WebApi/"]
 COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
 COPY ["Services/Services.csproj", "Services/"]
-COPY ["Exceptions/Exceptions.csproj", "Exceptions/"]
-COPY ["BusModels/BusModels.csproj", "BusModels/"]
 COPY ["Persistence/Persistence.csproj", "Persistence/"]
 RUN dotnet restore "WebApi/WebApi.csproj"
 COPY . .

@@ -4,7 +4,6 @@ using Moq;
 using Services.Bus.Interfaces;
 using Services.Models.Request;
 using Services.Repositories.Interfaces;
-using Services.Services.Interfaces;
 using Services.Validation;
 using Xunit;
 

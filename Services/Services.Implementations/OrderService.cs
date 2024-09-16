@@ -94,7 +94,9 @@ public class OrderService(
     {
         await orderValidator.ValidateAsync(model);
         
-        var orders = await orderRepository.GetByPeriodAsync(model.End.ToUniversalTime(), model.Period);
+        var orders = await orderRepository.GetByPeriodAsync(
+            model.End.ToUniversalTime(), 
+            model.Period);
         var result = mapper.Map<List<OrderFullModel>>(orders);
         return result;
     }

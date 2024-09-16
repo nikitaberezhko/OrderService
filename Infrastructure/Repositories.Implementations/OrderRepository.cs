@@ -90,6 +90,7 @@ public class OrderRepository(DbContext context) : IOrderRepository
             await context.Set<DownTime>().Where(x => x.OrderId == order.Id)
                 .ExecuteUpdateAsync(s => s.SetProperty(p => p.IsDeleted, true));
             await context.Set<Container>().Where(x => x.OrderId == order.Id).ExecuteDeleteAsync();
+            await context.SaveChangesAsync(); 
             
             return result;
         }
