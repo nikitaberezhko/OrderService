@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using OrderService.Contracts.ApiModels;
 using OrderService.Contracts.Request;
 using OrderService.Contracts.Response;
-using Serilog;
-using Serilog.Events;
-using SerilogTracing;
 using Services.Models.Request;
 using Services.Services.Interfaces;
 
