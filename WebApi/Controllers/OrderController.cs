@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using OrderService.Contracts.ApiModels;
 using OrderService.Contracts.Request;
 using OrderService.Contracts.Response;
+using Serilog;
+using Serilog.Events;
+using SerilogTracing;
 using Services.Models.Request;
 using Services.Services.Interfaces;
 
@@ -42,7 +45,7 @@ public class OrderController(
         var order = await orderService.GetById(mapper.Map<GetOrderByIdModel>(request));
         var response = new CommonResponse<GetOrderByIdResponse> 
             { Data = mapper.Map<GetOrderByIdResponse>(order) };
-
+        
         return response;
     }
     

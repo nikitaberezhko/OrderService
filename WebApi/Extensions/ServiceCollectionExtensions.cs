@@ -6,7 +6,15 @@ using Infrastructure.Settings;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Persistence.EntityFramework;
+using Serilog;
+using Serilog.Sinks.OpenTelemetry;
+using Serilog.Sinks.SystemConsole.Themes;
+using Serilog.Templates.Themes;
+using SerilogTracing;
+using SerilogTracing.Expressions;
 using Services.Bus.Interfaces;
 using Services.Mapper;
 using Services.Models.Request;
@@ -127,6 +135,17 @@ public static class ServiceCollectionExtensions
         return services;
     }
     
+    public static IServiceCollection ConfigureSerilogAndZipkinTracing(this IServiceCollection services)
+    {
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.Zipkin("http://localhost:9411")
+            .CreateLogger();
+        services.AddSerilog();
+        
+        return services;
+    }
+    
     public static IServiceCollection AddTelemetry(this IServiceCollection services)
     {
         services.AddOpenTelemetry()
@@ -139,8 +158,11 @@ public static class ServiceCollectionExtensions
                 builder.AddView("http.server.request.duration",
                     new ExplicitBucketHistogramConfiguration
                     {
-                        Boundaries = [ 0, 0.005, 0.01, 0.025, 0.05,
-                            0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10 ]
+                        Boundaries =
+                        [
+                            0, 0.005, 0.01, 0.025, 0.05,
+                            0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10
+                        ]
                     });
             });
         

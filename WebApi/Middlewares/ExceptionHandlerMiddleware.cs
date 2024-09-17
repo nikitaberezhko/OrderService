@@ -15,37 +15,29 @@ public class ExceptionHandlerMiddleware(ILogger<ExceptionHandlerMiddleware> logg
         }
         catch (InfrastructureException e)
         {
-            logger.LogWarning(e, e.Message);
+            logger.LogWarning($"Infrastructure exception: {e.Message}");
 
-            await InterceptResponseAsync(
-                context,
-                e.Title,
-                e.Message,
-                e.StatusCode);
+            await InterceptResponseAsync(context, e.Title, e.Message, e.StatusCode);
         }
         catch (ServiceException e)
         {
-            logger.LogWarning(e, e.Message);
+            logger.LogWarning($"Service exception: {e.Message}");
             
-            await InterceptResponseAsync(
-                context,
-                e.Title,
-                e.Message,
-                e.StatusCode);
+            await InterceptResponseAsync(context, e.Title, e.Message, e.StatusCode);
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "Unknown server error");
             
-            await InterceptResponseAsync(
-                context,
+            await InterceptResponseAsync(context,
                 "Unknown server error", 
                 "Please retry query", 
                 StatusCodes.Status500InternalServerError);
         }
     }
     
-    private async Task InterceptResponseAsync(HttpContext context,
+    private async Task InterceptResponseAsync(
+        HttpContext context, 
         string title, 
         string message, 
         int statusCode)
