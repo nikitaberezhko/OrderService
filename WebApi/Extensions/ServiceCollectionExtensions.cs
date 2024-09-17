@@ -134,9 +134,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var settings = configuration
-            .GetSection("ZipkinSettings")
-            .Get<ZipkinSettings>();
+        var settings = configuration.GetSection("ZipkinSettings").Get<ZipkinSettings>();
         
         Log.Logger = new LoggerConfiguration()
             .Enrich.WithProperty("Application", "OrderService")
