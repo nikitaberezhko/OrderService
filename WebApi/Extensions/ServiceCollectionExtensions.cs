@@ -18,6 +18,7 @@ using Services.Validation;
 using Services.Validation.Validators;
 using WebApi.Mapper;
 using WebApi.Middlewares;
+using WebApi.Settings;
 
 namespace WebApi.Extensions;
 
@@ -114,7 +115,7 @@ public static class ServiceCollectionExtensions
         services.AddMassTransit(options =>
         {
             options.UsingRabbitMq((_, cfg) =>
-                cfg.Host(rmqSettings.Host, rmqSettings.Vhost, h =>
+                cfg.Host(rmqSettings!.Host, rmqSettings.Vhost, h =>
                 {
                     h.Username(rmqSettings.Username);
                     h.Password(rmqSettings.Password);
@@ -129,11 +130,18 @@ public static class ServiceCollectionExtensions
         return services;
     }
     
-    public static IServiceCollection ConfigureSerilogAndZipkinTracing(this IServiceCollection services)
+    public static IServiceCollection ConfigureSerilogAndZipkinTracing(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
+        var settings = configuration
+            .GetSection("ZipkinSettings")
+            .Get<ZipkinSettings>();
+        
         Log.Logger = new LoggerConfiguration()
+            .Enrich.WithProperty("Application", "OrderService")
             .WriteTo.Console()
-            .WriteTo.Zipkin("http://localhost:9411")
+            .WriteTo.Zipkin(settings!.Endpoint)
             .CreateLogger();
         services.AddSerilog();
         
